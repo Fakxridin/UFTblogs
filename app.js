@@ -17,7 +17,7 @@ const app = express();
 const dbURI = "mongodb+srv://tonyuft4002:dasturchi@cluster0.gfehr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.connect(dbURI)
-  .then(result => app.listen(3000))
+  .then(result => app.listen(port))
   .catch(err => console.log(err));
 
 // register view engine
@@ -34,9 +34,7 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
-app.listen(port,()=>{
-  console.log(`Example app listening on port ${port}`)
-})
+
 // routes
 app.get('*', checkUser)
   app.get('/', (req, res) => {
