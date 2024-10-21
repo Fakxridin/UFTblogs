@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+body{
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  font-family: 'Noto Serif', serif;
+  background-color: rgba(21, 1, 104, 0.81);
+}
+p, h2, h3, h1, ul, li, a, button {
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+/* Navbar Styles */
+/* Navbar Styles */
+nav {
+  background-color: transparent; /* Semi-transparent background for better contrast */
+  color: #ECF0F1; 
+  padding: 12px 20px; /* Adjusted padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Aligns the items vertically in the center */
+  border-radius: 7px;
+  
+}
+
+.site-title {
+  margin: 0; /* Reset margin */
+}
+
+.site-title h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #DEB887;
+  transition: all 0.3s ease;
+  margin: 0;
+}
+
+.site-title h1:hover {
+  color: #3498DB; /* Change color on hover */
+  font-size: 28px;
+}
+
+.welcome {
+  font-size: 16px;
+  color: #D2691E;
+  transition: all 0.3s ease;
+  margin-left: 20px;
+}
+
+.welcome:hover {
+  color: #3498DB;
+  font-size: 18px;
+}
+
+/* Navigation Links */
+ul {
+  display: flex;
+  align-items: center; /* Centers links vertically */
+  margin: 0; /* Remove default margin */
+  padding: 0;
+}
+
+li {
+  margin: 0 15px; /* Space between links */
+}
+
+a {
+  color: #DEB887; /* Link color */
+  font-size: 18px;
+  transition: all 0.3s ease-out;
+}
+
+a:hover {
+  color: #3498DB; /* Change color on hover */
+  font-size: 18px;
+}
+
+
+/* Button Styles */
+button {
+  color: #DAA520;
+  background-color: transparent;
+  border-radius: 10% ;
+  border: 2px solid #DAA520;
+  padding: 8px;
+  transition: all 2s ease-out;
+}
+
+button:hover {
+  color: #3498DB;
+  padding: 9px;
+  font-size: 15px;
+  border: 1px solid ;
+}
+/* index styles */ 
+.blogs a{
+  display: block;
+  margin: 40px 0;
+  padding: 15px 30px; /* Adjust padding for better layout */
+  border-left: 2px solid #A0522D;
+  box-shadow: 2.3px 2.3px rgb(65,48,132); 
+  border-radius: 20px; /* Changed border-radius for a smoother shape */
+  background-color: rgb(65,43,132);
+
+  text-decoration: none; /* Remove default link underline */
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Ensure long text wraps */
+  box-sizing: border-box; /* Include padding and borders in width calculations */
+  max-width: 100%; /* Prevent the link from growing beyond its container */
+}
+.blogs a p {
+color: #DAA520;
+}
+.blogs a p:hover{
+  color: rgb(174, 86, 104);
+}
+.blogs a:hover h3{
+  color: rgb(174, 86, 104);
+}
+.blogs h2{
+ color: #3498DB;
+ position: relative;
+ justify-content: center;
+}
+/* details styles */
+
+
+
+.details {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #FFE4C4;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(201, 80, 80, 0.1);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.details h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 700;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.details .content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.details .content .createdat {
+  font-size: 14px;
+  color: #888;
+  margin-top: 15px;
+}
+
+.details a.delete {
+  display: inline-block;
+  background-color: #ff4c4c;
+  color: white;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.details a.delete:hover {
+  background-color: #d43d3d;
+}
+
+/* Next blog button styling */
+a.next-blog {
+  display: inline-block;
+  margin-top: 20px;
+  color: #1e90ff;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+a.next-blog:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .details {
+    width: 95%;
+  }
+}
+
+
+/* create styles */
+.create-blog form{
+  max-width: 400px;
+  margin: 0 auto;
+}
+.create-blog input,
+.create-blog textarea{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+}
+.create-blog label{
+  display: block;
+  margin-top: 24px;
+}
+textarea{
+  height: 120px;
+}
+.create-blog button{
+  margin-top: 20px;
+  background: crimson;
+  color: white;
+  padding: 6px;
+  border: 0;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+
+
+@media (max-width: 420px) {
+  nav {
+      flex-direction: column;
+      align-items: flex-start; /* Align items to the left on smaller screens */
+  }
+  
+  ul {
+      flex-direction: column; /* Stack links vertically */
+      width: 100%;
+      margin-top: 10px;
+  }
+
+  li {
+      margin: 5px 0; /* Add margin for vertical links */
+  }
+  
+  .site-title {
+      margin-bottom: 10px; /* Space between title and links */
+  }
+}

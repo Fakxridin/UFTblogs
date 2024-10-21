@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <style>
+    .form-container {
+      background-color: #F5F5DC;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
+    
+    .form-container h2 {
+      margin-bottom: 1rem;
+      color: #333;
+      font-size: 24px;
+      text-align: center;
+    }
+    
+    label {
+      font-size: 16px;
+      color: #555;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    /* Additional styling for text input and textarea */
+ textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #FFE4C4;
+  word-wrap: break-word; /* Ensures text wraps within the area */
+  overflow: hidden;
+}
+
+textarea {
+  height: 50px;
+  resize: vertical; /* Allows the textarea to be resizable */
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Makes sure text wraps correctly */
+  word-break: break-word; /* Break long words if necessary */
+  resize: none;
+}
+
+ textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+    
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+<body>
+  <%- include('./partials/nav.ejs') %>
+    <div class="create-blog content">
+      <form action="/blogs" method="post" class="form-container">
+        <h2>Create a New Blog</h2>
+        <label for="title">Title:</label>
+        <textarea type="text" id="title" name="title" required></textarea>
+        <label for="snippet">Summary:</label>
+        <textarea type="text" id="snippet" name="snippet" required></textarea>
+        <label for="body">Blog:</label>
+        <textarea id="body" name="body" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+   
+</body>
+</html>

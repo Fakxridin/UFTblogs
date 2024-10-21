@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; 
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #20B2AA; 
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; 
+      width: 90%; 
+      max-width: 550px; 
+      text-align: left;
+      padding: 20px; 
+      background-color:#FFF5EE ; 
+      border-radius: 8px; 
+    }
+
+    .login {
+      margin-bottom: 5px; 
+      font-size: 16px; 
+    }
+
+    .input-container {
+      position: relative;
+      width: 100%; 
+      margin-bottom: 10px; 
+    }
+
+    label {
+      margin-bottom: 5px; 
+      font-size: 16px; 
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%; 
+      padding: 10px;
+      padding-right: 40px; 
+      font-size: 16px;
+      box-sizing: border-box; 
+      background-color: #e0e0e0;
+      border: none; 
+      border-radius: 4px; 
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none; 
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      margin-top: 9px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px; 
+      
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0; 
+    }
+
+    .forgot-password {
+      text-decoration: none;
+      color: blue; 
+      font-size: 14px; 
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px; 
+      background-color: #007aff; 
+      color: white; 
+      border: none;
+      cursor: pointer;
+      width: 100%; 
+      font-size: 16px;
+      border-radius: 4px; 
+      transition: background-color 0.3s; 
+    }
+
+    button:hover {
+      background-color: darkred; 
+      opacity: 0.8; 
+    }
+
+    .google-signin {
+      padding: 10px;
+      margin-top: 10px; 
+      background-color: #333333; 
+      color: white; 
+      border: none;
+      cursor: pointer;
+      width: 100%; 
+      font-size: 16px; 
+      border-radius: 4px; 
+      transition: background-color 0.3s; 
+    }
+
+    .google-signin:hover {
+      background-color: #333; 
+    }
+
+    .signup-prompt {
+      margin-top: 10px;
+      font-size: 14px; 
+      text-align: center; 
+    }
+
+    .signup-link {
+      color: blue; 
+      text-decoration: none;
+      font-weight: bold; 
+    }
+    .custom-line {
+      border: none;
+      border-top: 1px solid #333333; 
+      margin: 20px 0; 
+  }
+  </style>
+</head>
+
+<body>
+  <form class="container">
+    <p class="login">Log in</p>
+    
+    <div class="input-container">
+      <label for="email"></label>
+      <input type="text" name="email" placeholder="Enter your email" />
+      <div class="email error"></div>
+    </div>
+
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input type="password" name="password" placeholder="Enter your password" id="password" />
+      <span class="toggle-password" id="togglePassword">👁️</span>
+      <div class="password error"></div>
+    </div>
+
+    <div class="remember-me">
+      <label>
+        <input type="checkbox" name="remember" />
+        Remember Me
+      </label>
+      <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+    </div>
+    
+    <button>Sign in</button>
+    <div class="custom-line"></div>
+    <button type="button" class="google-signin" id="googleSignInBtn">Sign in with Google</button><!-- Sign in with Google button -->
+
+    <div class="signup-prompt">
+      Don't have an account? 
+      <a href="/signup" class="signup-link">Sign up now</a> <!-- Sign up link -->
+    </div>
+  </form>
+  
+  
+
+
+
+
+
+  <script>
+    const form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+    
+    // Handle password visibility toggle
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.textContent = type === 'password' ? '👁️' : '🔒'; // Change icon
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      //reset errors
+      emailError.textContent = ''
+      passwordError.textContent = ''
+      // get value
+      const email = form.email.value;
+      const password = form.password.value;
+     
+      try {
+          const res = await fetch('/login', {
+          method: 'POST',
+          body: JSON.stringify ({email,password}), 
+          headers: {'Content-Type': 'application/json'}
+          })
+          const data = await res.json()
+          console.log(data)
+          if (data.errors) {
+         emailError.textContent = data.errors.email
+         passwordError.textContent = data.errors.password
+          }
+          if(data.user){
+          location.assign('/')    
+          }
+      }
+      catch (err) {
+          console.log(err)
+      }
+    });
+    //Google Sign-In
+  function initGoogleSignIn() {
+    gapi.load('auth2', function() {
+      // Initialize the Google auth object
+      gapi.auth2.init({
+        client_id: '168839565038-s1p9pksf1ajifj15o5tabv7ruuebq87b.apps.googleusercontent.com',
+      });
+    });
+  }
+
+  document.getElementById('googleSignInBtn').onclick = function() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    
+    auth2.signIn().then(function(googleUser) {
+      const id_token = googleUser.getAuthResponse().id_token; // Get the ID token
+
+      // Send the ID token to your server for verification and logging in the user
+      fetch('/google-login', {
+        method: 'POST',
+        body: JSON.stringify({ id_token }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.user) {
+          // Successful login
+          location.assign('/'); // Redirect to your homepage
+        } else {
+          console.log('Login failed:', data);
+        }
+      })
+      .catch(err => console.log(err));
+    }).catch((error) => {
+      console.error('Google sign-in error:', error);
+    });
+  };
+
+  // Initialize Google Auth after the page loads
+  window.onload = function() {
+    initGoogleSignIn();
+  };
+  </script>
+  
+  <script src="https://apis.google.com/js/api:client.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+  <%- include("./partials/nav.ejs") %>
+
+  <div class="details content" style="position: relative;">
+    <a href="/blogs" class="close-button">X</a>
+    <h2><%= blog.title %></h2>
+    <div class="content">
+      <p><%= blog.body %></p>
+      <p class="createdat"><%= new Date(blog.createdAt).toLocaleString() %></p>
+      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+    </div>
+  </div>
+
+  <script>
+    const trashcan = document.querySelector('a.delete');
+
+    trashcan.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default link behavior 
+    
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this blog!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const endpoint = `/blogs/${trashcan.dataset.doc}`;
+          
+          // Proceed with the DELETE request
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.redirect) {
+              window.location.href = data.redirect; // Redirect if deletion was successful
+            }
+          })
+          .catch(err => console.log(err));
+        } else {
+          Swal.fire("Cancelled", "Your blog post is safe.", "error");
+        }
+      });
+    });
+  </script>
+  
+  <style>
+    .close-button {
+      position: absolute;
+      top: 10px; /* Adjust based on your design */
+      right: 10px; /* Adjust based on your design */
+      text-decoration: none;
+      font-size: 21px;
+      color: #ff0000; /* Red color for visibility */
+      padding: 5px;
+      border: none;
+      background: transparent;
+      cursor: pointer; 
+    }
+    
+    .close-button:hover {
+      color: #cc0000; /* Darker red on hover */
+    }
+  </style>
+</body>
+</html>
