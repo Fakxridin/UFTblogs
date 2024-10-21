@@ -9,6 +9,7 @@ const axios = require('axios')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const port = process.env.PORT || 3000;
 // express app
 const app = express();
 
@@ -28,11 +29,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cookieParser())
+
 app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
-
+app.listen(port,()=>{
+  console.log(`Example app listening on port ${port}`)
+})
 // routes
 app.get('*', checkUser)
   app.get('/', (req, res) => {
