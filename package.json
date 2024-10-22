@@ -5,10 +5,10 @@
   "directories": {
     "doc": "docs"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+"scripts": {
+    "build": "webpack --mode production",
     "start": "node server.js"
-  },
+},
   "author": "",
   "license": "ISC",
   "description": "",
