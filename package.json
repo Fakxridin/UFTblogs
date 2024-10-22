@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "engines": {
-  "node": "20.x" 
+  "node": "20.x"
 },
  "scripts": {
   "install": "node-gyp rebuild",
