@@ -83,3 +83,35 @@ module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });  // Expire the JWT by setting a very short maxAge
   res.redirect('/');
 }
+
+//resett
+// Forgot Password - GET
+module.exports.forgotPassword_get = (req, res) => {
+  res.render('forgot-password');  // Render the forgot password page
+};
+
+// Forgot Password - POST
+module.exports.forgotPassword_post = async (req, res) => {
+  const { email } = req.body;
+  // Logic to generate reset token and send reset email
+  // ...
+  res.status(200).json({ message: 'Password reset link sent' });
+};
+
+// Reset Password - GET
+module.exports.resetPassword_get = (req, res) => {
+  const { token } = req.params;
+  // Logic to verify the token and render reset password page
+  // ...
+  res.render('reset-password', { token });  // Render reset password page with token
+};
+
+// Reset Password - POST
+module.exports.resetPassword_post = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  // Logic to reset the password using the token
+  // ...
+  res.status(200).json({ message: 'Password reset successful' });
+};
+

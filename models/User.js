@@ -14,18 +14,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
-  }
+  },
+  resetPasswordToken: String,        // Field for storing the reset token
+  resetPasswordExpires: Date         // Field for storing token expiration
 });
 
-
-// fire a function before doc saved to db
+// Fire a function before doc saved to db (hash password)
 userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next(); // Only hash password if it’s new or modified
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-// static method to login user
+// Static method to login user
 userSchema.statics.login = async function(email, password) {
   const user = await this.findOne({ email });
   if (user) {
@@ -38,6 +40,6 @@ userSchema.statics.login = async function(email, password) {
   throw Error('incorrect email');
 };
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
