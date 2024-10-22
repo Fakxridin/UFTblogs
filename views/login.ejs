@@ -265,6 +265,57 @@
   window.onload = function() {
     initGoogleSignIn();
   };
+
+  //rememberme
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Reset errors
+    emailError.textContent = '';
+    passwordError.textContent = '';
+    
+    // Get values
+    const email = form.email.value;
+    const password = form.password.value;
+    const rememberMe = form.remember.checked; // Get 'Remember Me' status
+  
+    // Remember email if checkbox is checked
+    if (rememberMe) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail'); // Remove it if it's unchecked
+    }
+  
+    try {
+      const res = await fetch('/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }), 
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+      console.log(data);
+      
+      if (data.errors) {
+        emailError.textContent = data.errors.email;
+        passwordError.textContent = data.errors.password;
+      }
+      if (data.user) {
+        location.assign('/');    
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  
+  // Load remembered email on page load
+  window.onload = function() {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      form.email.value = rememberedEmail; // Auto-fill the email if remembered
+      form.remember.checked = true; // Ensure the checkbox is checked
+    }
+    initGoogleSignIn(); // Initialize Google sign-in
+  };
   </script>
   
   <script src="https://apis.google.com/js/api:client.js"></script>
