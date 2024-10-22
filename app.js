@@ -9,16 +9,26 @@ const axios = require('axios')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+require('dotenv').config();
+const dbURI = process.env.MONGODB_URI;
 const port = process.env.PORT || 3000;
 // express app
 const app = express();
 
 // connect to mongodb & listen for requests
-const dbURI = "mongodb+srv://tonyuft4002:dasturchi@cluster0.gfehr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 
 mongoose.connect(dbURI)
-  .then(result => app.listen(port))
-  .catch(err => console.log(err));
+  .then(result => {
+    console.log('Connected to MongoDB');
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit the process on critical error
+  });
 
 // register view engine
 app.set('view engine', 'ejs');
