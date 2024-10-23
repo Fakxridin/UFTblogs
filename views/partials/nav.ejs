@@ -1,22 +1,22 @@
 
 <nav>
-    <div class="site-title">
-        <a href="/"><h1>UFT Blog</h1></a>
-        <% if (user) {%>
-        <div class="welcome">Welcome, <%= user.email %></div>
-    </div>
-    <ul>
-        <li><a href="/">Blogs</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/blogs/create">New Blog</a></li> 
-      <div>  
-        <li>
-            <a href="javascript:void(0);" onclick="return confirmLogout();"><button class="logout">Log Out</button></a>
-          </li>
-          <% } else { %>
-          <li><a href="/login"><button>log in</button></a></li>
-          <li><a href="/signup"><button>sign up</button></a></li>
-        </div>
-        <%  } %>
-    </ul>
+  <div class="site-title">
+      <a href="/"><h1>UFT Blog</h1></a>
+      <% if (user) {%>
+      <div class="welcome">Welcome, <%= user.email %></div>
+  </div>
+  <ul>
+      <li><a href="/">Blogs</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blogs/create">New Blog</a></li> 
+    <div>  
+      <li>
+          <a href="javascript:void(0);" onclick="return confirmLogout();"><button class="logout">Log Out</button></a>
+        </li>
+        <% } else { %>
+        <li><a href="/login"><button>log in</button></a></li>
+        <li><a href="/signup"><button>sign up</button></a></li>
+      </div>
+      <%  } %>
+  </ul>
 </nav>
