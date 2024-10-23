@@ -12,6 +12,7 @@
                 <a class="single" href="/blogs/<%= blog._id %>">
                    <h3 class="title"><%= blog.title %></h3>
                    <p class="snippet"><%= blog.snippet %></p>
+                   
                 </a>
             <% }) %>
         <% } else { %>
@@ -20,26 +21,26 @@
         <% } %>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to log out?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, log out!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/logout";
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire('Cancelled', 'You are still logged in.', 'error');
+                }
+            });
+        }
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    function confirmLogout() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you want to log out?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, log out!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/logout";
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire('Cancelled', 'You are still logged in.', 'error');
-            }
-        });
-    }
-</script>
 </html>
