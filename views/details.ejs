@@ -5,15 +5,17 @@
 <body>
   <%- include("./partials/nav.ejs") %>
 
-  <div class="details content" style="position: relative;">
-    <a href="/blogs" class="close-button">X</a>
+  <article class="details content" style="position: relative;">
+    <a href="/blogs" class="close-button" aria-label="Close blog details">X</a>
     <h2><%= blog.title %></h2>
+    <p><strong>Snippet:</strong> <%= blog.snippet %></p>
     <div class="content">
       <p><%= blog.body %></p>
       <p class="createdat"><%= new Date(blog.createdAt).toLocaleString() %></p>
-      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+      <a class="delete" data-doc="<%= blog._id %>">Delete</a>
+      <a href="/blogs/<%= blog._id %>/edit" class="edit-button">Edit</a> <!-- Add Edit button -->
     </div>
-  </div>
+  </article>
 
   <script>
     const trashcan = document.querySelector('a.delete');
@@ -42,14 +44,17 @@
               window.location.href = data.redirect; // Redirect if deletion was successful
             }
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            console.error(err);
+            Swal.fire("Error", "There was a problem deleting your blog. Please try again.", "error");
+          });
         } else {
           Swal.fire("Cancelled", "Your blog post is safe.", "error");
         }
       });
     });
   </script>
-  
+
   <style>
     .close-button {
       position: absolute;
@@ -63,9 +68,19 @@
       background: transparent;
       cursor: pointer; 
     }
-    
+
     .close-button:hover {
       color: #cc0000; /* Darker red on hover */
+    }
+    
+    .edit-button {
+      text-decoration: none;
+      color: #007bff; /* Bootstrap primary color for visibility */
+      margin-left: 15px; /* Space between delete and edit buttons */
+    }
+
+    .edit-button:hover {
+      text-decoration: underline; /* Underline effect on hover */
     }
   </style>
 </body>

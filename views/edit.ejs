@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<head>
+    <style>
+      
+
+        .content {
+            max-width: 600px; /* Max width for the form */
+            margin: 30px auto; /* Center the form */
+            padding: 40px; /* Padding around the form */
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        h2 {
+            text-align: center; /* Center the heading */
+            color: #333; /* Dark grey color */
+            margin-bottom: 30px; /* Spacing below heading */
+        }
+
+        label {
+            font-weight: bold; /* Bold labels */
+            margin-top: 20px; /* Space above each label */
+            display: block; /* Labels are block elements */
+            color: #555; /* Darker grey for better contrast */
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%; /* Full width input */
+            padding: 12px; /* Padding for inputs */
+            margin-top: 5px; /* Space below each label */
+            margin-bottom: 20px; /* Space below each input */
+            border-radius: 6px; /* Rounded corners */
+            border: 1px solid #ced4da; /* Light border color */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+            box-sizing: border-box; /* Ensure padding is included in total width */
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #007bff; /* Blue border on focus */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+        }
+
+        textarea {
+            resize: vertical; /* Allow vertical resize for textarea */
+            min-height: 150px; /* Minimum height for the textarea */
+        }
+
+        .edit-button {
+            display: block; /* Make the button a block element */
+            width: 100%; /* Full width button */
+            padding: 12px; /* Padding around the button */
+            background-color: #28a745; /* Bootstrap success color */
+            color: white; /* White text */
+            border: none; /* Remove border */
+            border-radius: 6px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 18px; /* Font size for button */
+            transition: background-color 0.3s; /* Transition for background color */
+            margin-top: 10px; /* Space above button */
+        }
+
+        .edit-button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        .close-button {
+            position: absolute; /* Position it relative to the parent */
+            top: 20px; /* Position from the top */
+            right: 20px; /* Position from the right */
+            font-size: 34px; /* Font size of the close button */
+            color: #dc3545; /* Red color for the close button */
+            text-decoration: none; /* Remove underline */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .close-button:hover {
+            color: #c82333; /* Darker red on hover */
+            font-size: 44px;
+        }
+        .error {
+            color: #dc3545; /* Red color for error messages */
+            margin-top: 10px; /* Space above the error message */
+            font-size: 14px; /* Font size for error message */
+            text-align: center; /* Center the error message */
+        }
+    </style>
+</head>
+
+<body>
+    <%- include("./partials/nav.ejs") %>
+
+    <div class="edit content" style="position: relative;"> <!-- Added relative positioning -->
+        <a href="/blogs/<%= blog._id %>" class="close-button">&times;</a> <!-- Close button -->
+        <h2>Edit Blog: <%= blog.title %></h2>
+        <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST"> 
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" value="<%= blog.title %>" required />
+            </div>
+            <div>
+                <label for="snippet">Snippet:</label>
+                <input type="text" name="snippet" id="snippet" value="<%= blog.snippet %>" required />
+            </div>
+            <div>
+                <label for="body">Body:</label>
+                <textarea name="body" id="body" required><%= blog.body %></textarea>
+            </div>
+            <button class="edit-button" type="submit">Update Blog</button>
+            <% if (error) { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+        </form>
+    </div>
+</body>
+</html>

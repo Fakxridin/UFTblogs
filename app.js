@@ -29,7 +29,10 @@ mongoose.connect(dbURI)
     console.error('MongoDB connection error:', err);
     process.exit(1); // Exit the process on critical error
   });
+//ovverride
+const methodOverride = require('method-override');
 
+app.use(methodOverride('_method')); 
 // register view engine
 app.set('view engine', 'ejs');
 

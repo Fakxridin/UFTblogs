@@ -1,5 +1,6 @@
 const Blog = require('../models/blog');
 
+// Get all blogs for the current user
 const blog_index = (req, res) => {
     Blog.find({ user: req.user._id }).sort({ createdAt: -1 })
         .then(result => {
@@ -10,6 +11,7 @@ const blog_index = (req, res) => {
         });
 };
 
+// Get blog details for a specific blog
 const blog_details = (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
@@ -25,14 +27,16 @@ const blog_details = (req, res) => {
         });
 };
 
+// Render the create blog page
 const blog_create_get = (req, res) => {
     res.render('create', { title: 'Create a new blog' });
 };
 
+// Handle the form submission for creating a new blog
 const blog_create_post = (req, res) => {
     const blog = new Blog({
         ...req.body,
-        user: req.user._id
+        user: req.user._id // associate the blog with the logged-in user
     });
 
     blog.save()
@@ -44,6 +48,55 @@ const blog_create_post = (req, res) => {
         });
 };
 
+// Render the edit blog page
+const blog_edit_get = (req, res) => {
+    const id = req.params.id;
+    Blog.findById(id)
+        .then(result => {
+            if (result) {
+                // Render edit page with the blog data
+                res.render('edit', { blog: result, title: 'Edit Blog', error: null });
+            } else {
+                res.status(404).render('edit', { blog: {}, title: 'Edit Blog', error: 'Blog not found' }); // Handle not found error
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).render('edit', { blog: {}, title: 'Edit Blog', error: 'Internal Server Error' }); // Handle error with server
+        });
+};
+
+// Handle the form submission for updating a blog
+const blog_edit_post = (req, res) => {
+    const id = req.params.id;
+    const { title, snippet, body } = req.body; // Ensure body is destructured and available
+
+    Blog.findById(id) // Fetch the blog to edit
+        .then(blog => {
+            if (!blog) {
+                return res.status(404).send('Blog not found');
+            }
+            if (blog.user.toString() !== req.user._id.toString()) {
+                return res.status(403).send('Unauthorized access');
+            }
+
+            // Update properties
+            blog.title = title || blog.title; // Update title if provided
+            blog.snippet = snippet || blog.snippet; // Update snippet if provided
+            blog.body = body || blog.body; // Update body if provided
+
+            return blog.save(); // Save the changes
+        })
+        .then(() => {
+            res.redirect(`/blogs/${id}`); // Redirect to the blog detail view
+        })
+        .catch(err => {
+            console.error(err); // Log any errors
+            res.status(500).send('Internal Server Error');
+        });
+};
+
+// Delete a blog
 const blog_delete = (req, res) => {
     const id = req.params.id;
 
@@ -68,5 +121,7 @@ module.exports = {
     blog_details,
     blog_create_get,
     blog_create_post,
+    blog_edit_get,
+    blog_edit_post,
     blog_delete,
 };
