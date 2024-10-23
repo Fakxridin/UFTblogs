@@ -13,7 +13,7 @@
       <p><%= blog.body %></p>
       <p class="createdat"><%= new Date(blog.createdAt).toLocaleString() %></p>
       <a class="delete" data-doc="<%= blog._id %>">Delete</a>
-      <a href="/blogs/<%= blog._id %>/edit" class="edit-button">Edit</a> <!-- Add Edit button -->
+      <a href="/blogs/<%= blog._id %>/edit" class="edit-button">Edit <span>&#9998;</span></a> <!-- Add Edit button -->
     </div>
   </article>
 

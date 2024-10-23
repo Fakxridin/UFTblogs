@@ -4,8 +4,6 @@
 
 <head>
     <style>
-      
-
         .content {
             max-width: 600px; /* Max width for the form */
             margin: 30px auto; /* Center the form */
@@ -28,28 +26,26 @@
             color: #555; /* Darker grey for better contrast */
         }
 
-        input[type="text"],
         textarea {
-            width: 100%; /* Full width input */
-            padding: 12px; /* Padding for inputs */
+            width: 100%; /* Full width textarea */
+            padding: 12px; /* Padding for textareas */
             margin-top: 5px; /* Space below each label */
-            margin-bottom: 20px; /* Space below each input */
+            margin-bottom: 20px; /* Space below each textarea */
             border-radius: 6px; /* Rounded corners */
             border: 1px solid #ced4da; /* Light border color */
             transition: border-color 0.3s; /* Smooth transition for border color */
             box-sizing: border-box; /* Ensure padding is included in total width */
         }
 
-        input[type="text"]:focus,
+        /* Increase the body textarea height */
+        #body {
+            min-height: 200px; /* Minimum height for the body textarea */
+        }
+
         textarea:focus {
             border-color: #007bff; /* Blue border on focus */
             outline: none; /* Remove default outline */
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
-        }
-
-        textarea {
-            resize: vertical; /* Allow vertical resize for textarea */
-            min-height: 150px; /* Minimum height for the textarea */
         }
 
         .edit-button {
@@ -96,17 +92,17 @@
 <body>
     <%- include("./partials/nav.ejs") %>
 
-    <div class="edit content" style="position: relative;"> <!-- Added relative positioning -->
-        <a href="/blogs/<%= blog._id %>" class="close-button">&times;</a> <!-- Close button -->
-        <h2>Edit Blog: <%= blog.title %></h2>
+    <div class="edit content" style="position: relative;">
+        <a href="/blogs/<%= blog._id %>" class="close-button">&times;</a>
+        <h2>Edit Blog:</h2>
         <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST"> 
             <div>
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" value="<%= blog.title %>" required />
+                <textarea name="title" id="title" rows="2" required><%= blog.title %></textarea>
             </div>
             <div>
                 <label for="snippet">Snippet:</label>
-                <input type="text" name="snippet" id="snippet" value="<%= blog.snippet %>" required />
+                <textarea name="snippet" id="snippet" rows="2" required><%= blog.snippet %></textarea>
             </div>
             <div>
                 <label for="body">Body:</label>
