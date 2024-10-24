@@ -95,7 +95,7 @@
     <div class="edit content" style="position: relative;">
         <a href="/blogs/<%= blog._id %>" class="close-button">&times;</a>
         <h2>Edit Blog:</h2>
-        <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST"> 
+        <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST" id="create-blog-form"> 
             <div>
                 <label for="title">Title:</label>
                 <textarea name="title" id="title" rows="2" required><%= blog.title %></textarea>
@@ -108,11 +108,17 @@
                 <label for="body">Body:</label>
                 <textarea name="body" id="body" required><%= blog.body %></textarea>
             </div>
-            <button class="edit-button" type="submit">Update Blog</button>
+            <button class="edit-button" type="submit" id="submit-button">Update Blog</button>
             <% if (error) { %>
                 <div class="error"><%= error %></div>
             <% } %>
         </form>
     </div>
 </body>
+<script>
+    const form = document.getElementById('create-blog-form');
+    form.addEventListener('submit', () => {
+        document.getElementById('submit-button').disabled = true;
+    });
+  </script>
 </html>
