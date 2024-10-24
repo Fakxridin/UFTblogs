@@ -34,17 +34,26 @@ const blog_create_get = (req, res) => {
 
 // Handle the form submission for creating a new blog
 const blog_create_post = (req, res) => {
-    const blog = new Blog({
-        ...req.body,
-        user: req.user._id // associate the blog with the logged-in user
-    });
+    // Check if a blog with the same title already exists
+    Blog.findOne({ title: req.body.title, user: req.user._id })
+        .then(existingBlog => {
+            if (existingBlog) {
+                return res.status(400).json({ message: 'Blog with this title already exists.' });
+            }
 
-    blog.save()
+            const blog = new Blog({
+                ...req.body,
+                user: req.user._id // associate the blog with the logged-in user
+            });
+
+            return blog.save();
+        })
         .then(result => {
             res.redirect('/blogs');
         })
         .catch(err => {
             console.log(err);
+            res.status(500).json({ message: 'An error occurred while creating the blog.' });
         });
 };
 

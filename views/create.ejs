@@ -74,7 +74,7 @@ textarea {
 <body>
   <%- include('./partials/nav.ejs') %>
     <div class="create-blog content">
-      <form action="/blogs" method="post" class="form-container">
+      <form action="/blogs" method="post" class="form-container" id="create-blog-form">
         <h2>Create a New Blog</h2>
         <label for="title">Title:</label>
         <textarea type="text" id="title" name="title" required></textarea>
@@ -82,9 +82,14 @@ textarea {
         <textarea type="text" id="snippet" name="snippet" required></textarea>
         <label for="body">Blog:</label>
         <textarea id="body" name="body" required></textarea>
-        <button type="submit">Submit</button>
+        <button type="submit" id="submit-button">Submit</button>
       </form>
     </div>
-   
+  <script>
+    const form = document.getElementById('create-blog-form');
+    form.addEventListener('submit', () => {
+        document.getElementById('submit-button').disabled = true;
+    });
+  </script>
 </body>
 </html>
