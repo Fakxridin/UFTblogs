@@ -6,13 +6,11 @@
     "doc": "docs"
   },
   "engines": {
-    "node": "20.x"
+    "node": "16.x" 
   },
   "scripts": {
-     "build": "node app.js",
-     "dev": "npm run dev",
-    "install": "node rebuild"
-   
+     "start": "node app.js",   
+     "dev": "nodemon app.js"    
   },
   "author": "",
   "license": "ISC",
