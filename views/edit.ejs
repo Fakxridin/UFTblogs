@@ -4,87 +4,86 @@
 
 <head>
     <style>
-        .content {
-            max-width: 600px; /* Max width for the form */
-            margin: 30px auto; /* Center the form */
-            padding: 40px; /* Padding around the form */
-            background-color: #ffffff; /* White background for the form */
-            border-radius: 12px; /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+   
+        
+        .edit.content {
+            background-color: #F5F5DC;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width for the content */
+            max-width: 400px; /* Limit the max width of the form */
+            box-sizing: border-box; /* Include padding and border in width */
+            margin: auto; /* Center it within the flex container */
         }
-
+        
         h2 {
-            text-align: center; /* Center the heading */
-            color: #333; /* Dark grey color */
-            margin-bottom: 30px; /* Spacing below heading */
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 24px;
+            text-align: center;
         }
 
         label {
-            font-weight: bold; /* Bold labels */
-            margin-top: 20px; /* Space above each label */
-            display: block; /* Labels are block elements */
-            color: #555; /* Darker grey for better contrast */
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         textarea {
-            width: 100%; /* Full width textarea */
-            padding: 12px; /* Padding for textareas */
-            margin-top: 5px; /* Space below each label */
-            margin-bottom: 20px; /* Space below each textarea */
-            border-radius: 6px; /* Rounded corners */
-            border: 1px solid #ced4da; /* Light border color */
-            transition: border-color 0.3s; /* Smooth transition for border color */
-            box-sizing: border-box; /* Ensure padding is included in total width */
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #FFE4C4;
+            height: 50px;
+            resize: vertical;
         }
-
-        /* Increase the body textarea height */
-        #body {
-            min-height: 200px; /* Minimum height for the body textarea */
-        }
-
         textarea:focus {
-            border-color: #007bff; /* Blue border on focus */
-            outline: none; /* Remove default outline */
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
         }
 
         .edit-button {
-            display: block; /* Make the button a block element */
-            width: 100%; /* Full width button */
-            padding: 12px; /* Padding around the button */
-            background-color: #28a745; /* Bootstrap success color */
-            color: white; /* White text */
-            border: none; /* Remove border */
-            border-radius: 6px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor on hover */
-            font-size: 18px; /* Font size for button */
-            transition: background-color 0.3s; /* Transition for background color */
-            margin-top: 10px; /* Space above button */
+            background-color: #007bff;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
 
         .edit-button:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #0056b3;
         }
 
         .close-button {
-            position: absolute; /* Position it relative to the parent */
-            top: 20px; /* Position from the top */
-            right: 20px; /* Position from the right */
-            font-size: 34px; /* Font size of the close button */
-            color: #dc3545; /* Red color for the close button */
-            text-decoration: none; /* Remove underline */
-            cursor: pointer; /* Pointer cursor on hover */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 34px;
+            color: #dc3545;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .close-button:hover {
-            color: #c82333; /* Darker red on hover */
+            color: #c82333;
             font-size: 44px;
         }
         .error {
-            color: #dc3545; /* Red color for error messages */
-            margin-top: 10px; /* Space above the error message */
-            font-size: 14px; /* Font size for error message */
-            text-align: center; /* Center the error message */
+            color: #dc3545;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
         }
     </style>
 </head>
@@ -117,8 +116,19 @@
 </body>
 <script>
     const form = document.getElementById('create-blog-form');
-    form.addEventListener('submit', () => {
-        document.getElementById('submit-button').disabled = true;
+    const submitButton = document.getElementById('submit-button');
+
+    form.addEventListener('submit', (event) => {
+        // Optional: You can also prevent multiple submissions on the server-side
+        // Check if the submit button is disabled
+        if (submitButton.disabled) {
+            event.preventDefault(); // Prevent default action if already disabled
+            return; // Exit the event handler
+        }
+
+        // Disable the button and change its text to indicate loading
+        submitButton.disabled = true;
+        submitButton.textContent = 'Updating...'; // Change the button text
     });
-  </script>
+</script>
 </html>
