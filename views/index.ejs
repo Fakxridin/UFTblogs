@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('./partials/head.ejs') %>
+    
 <body>
    <%- include('./partials/nav.ejs') %>
-   
+
+   <a href="/blogs/create" aria-label="Create a new blog" class="fixed-icon">
+    <i class="fas fa-pencil-alt" ></i>
+    <span class="tooltip">new blog</span>
+</a>
+
     <div class="blogs content">
         <h2>All Blogs</h2>
 
@@ -18,8 +24,9 @@
             <p>No blogs found.</p>
             <a href="/blogs/create" class="add-new-blog">Add New Blog</a>
         <% } %>
+      
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>

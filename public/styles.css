@@ -125,8 +125,47 @@ color: #DAA520;
 }
 /* details styles */
 
+.fixed-icon {
+  position: fixed;          /* Keep it fixed in the viewport */
+  bottom: 30px;            /* Distance from the bottom of the viewport */
+  right: 79px;   
+         /* Distance from the left of the viewport */
+  font-size: 33px;        /* Size of the icon */
+  color: #d0ff00;         /* Icon color */
+  
+  border-radius: 50%;      /* Rounded edges */
+  padding: 10px;          /* Padding for click area */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  transition: background-color 0.3s;
+  z-index: 1000;          /* Ensure it’s on top of other elements */
+}
 
+.fixed-icon:hover {
+  font-size: 39px; 
+}
+.tooltip {
+    visibility: hidden;  /* Hidden by default */
+    width: 150px;       /* Tooltip width */
+   font-size: 22px;
+    color:  #DEB887;        /* Text color */
+    text-align: center; /* Centered text */
+    border-radius: 6px; /* Rounded corners */
+    padding: 5px;       /* Padding */
+    position: absolute;  /* Positioned relative to parent */
+    bottom: 60px;       /* Position above the icon */
+    left: 80%;  
+            /* Center horizontally */
+    transform: translateX(-50%); /* Correct centering */
+    z-index: 999;       /* Below the icon */
+    opacity: 0;         /* Initially hidden */
+    transition: opacity 0.3s; /* Smooth transition */
+}
 
+/* Show tooltip on hover */
+.fixed-icon:hover .tooltip {
+    visibility: visible; /* Show tooltip */
+    opacity: 1;         /* Fade-in effect */
+}
 .details {
   width: 80%;
   margin: 20px auto;
@@ -228,6 +267,7 @@ textarea{
   font-size: 1.2em;
   cursor: pointer;
 }
+
 
 
 
