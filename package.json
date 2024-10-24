@@ -6,11 +6,12 @@
     "doc": "docs"
   },
   "engines": {
-    "node": "20.x"
+    "node": "16.x"
   },
   "scripts": {
-    "install": "node-gyp rebuild",
-    "build": "node app.js"
+     "build": "node app.js",
+    "install": "npm run dev"
+   
   },
   "author": "",
   "license": "ISC",
