@@ -10,7 +10,8 @@
   },
   "scripts": {
      "build": "node app.js",
-    "install": "npm run dev"
+     "dev": "npm run dev",
+    "install": "node rebuild"
    
   },
   "author": "",
